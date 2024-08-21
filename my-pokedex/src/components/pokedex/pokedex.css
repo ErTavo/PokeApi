@@ -1,0 +1,37 @@
+/* src/components/Pokedex.css */
+.pokedex {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .pokemon-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .pokemon-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .pokemon-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  .pokemon-card h3 {
+    margin: 10px 0;
+    text-transform: capitalize;
+  }
+  
+  .pokemon-card p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
