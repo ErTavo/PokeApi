@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Typography, Grid, Card, CardContent, CardMedia, CircularProgress, Divider } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import './pokemonDetail.css'; // Asegúrate de importar el CSS
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -15,19 +16,15 @@ const PokemonDetail = () => {
   useEffect(() => {
     const fetchPokemonDetails = async () => {
       try {
-        // Fetch basic Pokemon details
         const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
         setPokemon(pokemonResponse.data);
 
-        // Fetch species data to get evolution chain ID
         const speciesResponse = await axios.get(pokemonResponse.data.species.url);
         const evolutionChainId = speciesResponse.data.evolution_chain.url.split('/').slice(-2, -1)[0];
 
-        // Fetch evolution chain
         const evolutionChainResponse = await axios.get(`https://pokeapi.co/api/v2/evolution-chain/${evolutionChainId}/`);
         setEvolutionChain(evolutionChainResponse.data);
 
-        // Check which sprites are valid
         const spritesToCheck = Object.values(pokemonResponse.data.sprites).filter(sprite => sprite);
         const validSpritesPromises = spritesToCheck.map(async (spriteUrl) => {
           const response = await fetch(spriteUrl, { method: 'HEAD' });
@@ -114,22 +111,21 @@ const PokemonDetail = () => {
     };
 
     return (
-      <Box>
+      <Box className="evolution-chain">
         <Typography variant="h6" gutterBottom>Evolutions</Typography>
         {renderEvolution(chain.chain)}
       </Box>
     );
   };
 
-  // Concatenate games into a single string
   const gameList = pokemon.game_indices.map(game => game.version.name).join(' | ');
 
   return (
-    <Box padding={4}>
+    <Box className="pokemon-detail" padding={4}>
       <Typography variant="h4" gutterBottom>{pokemon.name.toUpperCase()}</Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card className="card">
             <CardMedia
               component="img"
               alt={pokemon.name}
@@ -141,7 +137,7 @@ const PokemonDetail = () => {
               <Typography variant="h6">Types</Typography>
               <Box display="flex" flexDirection="row" gap={1}>
                 {pokemon.types.map((typeInfo) => (
-                  <Box key={typeInfo.type.name} bgcolor={getTypeColors(typeInfo.type.name)} color="white" p={1} borderRadius="4px">
+                  <Box key={typeInfo.type.name} className="type-box" bgcolor={getTypeColors(typeInfo.type.name)} color="white" p={1} borderRadius="4px">
                     {typeInfo.type.name}
                   </Box>
                 ))}
@@ -151,14 +147,14 @@ const PokemonDetail = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Typography variant="h6" gutterBottom>Stats</Typography>
-          <Box>
+          <Box className="stats">
             {pokemon.stats.map((stat) => (
               <Typography key={stat.stat.name}>{stat.stat.name}: {stat.base_stat}</Typography>
             ))}
           </Box>
           <Divider />
           <Typography variant="h6" gutterBottom>Sprites</Typography>
-          <Box display="flex" flexDirection="row" gap={1}>
+          <Box className="sprites" display="flex" flexDirection="row" gap={1}>
             {Object.entries(pokemon.sprites).map(([key, spriteUrl], index) =>
               (spriteUrl && index !== 8 && index !== 9 && validSprites[spriteUrl]) ? (
                 <img key={key} src={spriteUrl} alt={`Sprite ${key}`} width={100} />
@@ -168,6 +164,7 @@ const PokemonDetail = () => {
           <Divider />
           <Typography variant="h6" gutterBottom>Games</Typography>
           <Typography>{gameList}</Typography>
+          <Divider />
           {evolutionChain && renderEvolutionChain(evolutionChain.chain)}
         </Grid>
       </Grid>

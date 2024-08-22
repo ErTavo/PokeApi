@@ -1,4 +1,51 @@
 /* src/components/Pokedex.css */
+
+/* Contenedor principal */
+.pokemon-detail {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+/* Tarjeta de Pokémon */
+.pokemon-detail .card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.pokemon-detail .card img {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Tipografía y colores */
+.pokemon-detail h1 {
+  font-family: 'Press Start 2P', cursive; /* O cualquier fuente pixelada que te guste */
+  color: #333;
+}
+
+
+
+/* Estilo para sprites y stats */
+.pokemon-detail .sprites img {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.pokemon-detail .stats {
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Botones */
 .pokemon-detail button {
   background-color: #007bff;
   color: white;
@@ -12,4 +59,48 @@
 
 .pokemon-detail button:hover {
   background-color: #0056b3;
+}
+
+/* src/components/Pokedex.css */
+
+/* Añadir estilo para el contenedor de evoluciones */
+.pokemon-detail .evolution-chain {
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-top: 20px;
+}
+
+.pokemon-detail .evolution-chain img {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+/* src/components/Pokedex.css */
+.pokemon-detail .type-box {
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.pokemon-detail .card {
+  /* Añadir estilos adicionales para la tarjeta si es necesario */
+}
+
+.pokemon-detail .sprites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pokemon-detail .sprites img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.pokemon-detail .evolution-chain {
+  margin-top: 20px;
 }

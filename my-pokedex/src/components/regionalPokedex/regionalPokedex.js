@@ -3,6 +3,17 @@ import React, { useState } from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
 import Pokedex from '../pokedex/pokedex';
 
+const regionColors = [
+  '#ffcccb', // Kanto
+  '#add8e6', // Johto
+  '#90ee90', // Hoenn
+  '#d3d3d3', // Sinnoh
+  '#ffa07a', // Unova
+  '#ffb6c1', // Kalos
+  '#f0e68c', // Alola
+  '#e6e6fa'  // Galar
+];
+
 const RegionalPokedex = () => {
   const [region, setRegion] = useState(0);
 
@@ -10,7 +21,6 @@ const RegionalPokedex = () => {
     setRegion(newValue);
   };
 
-  // URLs de las generaciones
   const regions = [
     { name: 'Kanto', url: 'https://pokeapi.co/api/v2/generation/1/' },
     { name: 'Johto', url: 'https://pokeapi.co/api/v2/generation/2/' },
@@ -30,7 +40,7 @@ const RegionalPokedex = () => {
         ))}
       </Tabs>
       <Box mt={2}>
-        <Pokedex generationUrl={regions[region].url} />
+        <Pokedex generationUrl={regions[region].url} containerColor={regionColors[region]} />
       </Box>
     </Box>
   );
