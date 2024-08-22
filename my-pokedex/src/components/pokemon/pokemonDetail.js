@@ -1,12 +1,14 @@
 // src/components/pokemon/PokemonDetail.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Grid, Card, CardContent, CardMedia, CircularProgress, Divider } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Box, Typography, Grid, Card, CardContent, CardMedia, CircularProgress, Divider, IconButton } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import './pokemonDetail.css'; // Asegúrate de importar el CSS
 
 const PokemonDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [pokemon, setPokemon] = useState(null);
   const [evolutionChain, setEvolutionChain] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -88,7 +90,7 @@ const PokemonDetail = () => {
       steel: '#B8B8D0',
       fairy: '#F0B6BC'
     };
-    return typeColors[type] || '#FFFFFF';
+    return typeColors[type] || '#FFFFFF'; // Default color if type not found
   };
 
   const renderEvolutionChain = (chain) => {
@@ -122,7 +124,16 @@ const PokemonDetail = () => {
 
   return (
     <Box className="pokemon-detail" padding={4}>
-      <Typography variant="h4" gutterBottom>{pokemon.name.toUpperCase()}</Typography>
+      <Box className="header">
+        <IconButton
+          color="primary"
+          onClick={() => navigate(-1)}
+          style={{ marginBottom: '20px', marginRight: 'auto' }}
+        >
+          <ArrowBackIosIcon />
+        </IconButton>
+        <Typography variant="h4" gutterBottom>{pokemon.name.toUpperCase()}</Typography>
+      </Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
           <Card className="card">
@@ -137,7 +148,11 @@ const PokemonDetail = () => {
               <Typography variant="h6">Types</Typography>
               <Box display="flex" flexDirection="row" gap={1}>
                 {pokemon.types.map((typeInfo) => (
-                  <Box key={typeInfo.type.name} className="type-box" bgcolor={getTypeColors(typeInfo.type.name)} color="white" p={1} borderRadius="4px">
+                  <Box 
+                    key={typeInfo.type.name}
+                    className="type-box"
+                    style={{ backgroundColor: getTypeColors(typeInfo.type.name), color: 'white', padding: '5px 10px', borderRadius: '4px' }}
+                  >
                     {typeInfo.type.name}
                   </Box>
                 ))}
@@ -154,10 +169,10 @@ const PokemonDetail = () => {
           </Box>
           <Divider />
           <Typography variant="h6" gutterBottom>Sprites</Typography>
-          <Box className="sprites" display="flex" flexDirection="row" gap={1}>
+          <Box className="sprites" display="flex" flexWrap="wrap" gap={1}>
             {Object.entries(pokemon.sprites).map(([key, spriteUrl], index) =>
               (spriteUrl && index !== 8 && index !== 9 && validSprites[spriteUrl]) ? (
-                <img key={key} src={spriteUrl} alt={`Sprite ${key}`} width={100} />
+                <img key={key} src={spriteUrl} alt={`Sprite ${key}`} width={100} style={{ margin: '5px' }} />
               ) : null
             )}
           </Box>

@@ -13,3 +13,20 @@ code {
     monospace;
 }
 
+/* src/components/Pokedex.css */
+.pokemon-detail button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pokemon-detail button:hover {
+  background-color: #0056b3;
+}
+
+/* Agrega otros estilos aquí si es necesario */

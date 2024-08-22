@@ -104,3 +104,17 @@
 .pokemon-detail .evolution-chain {
   margin-top: 20px;
 }
+
+/* src/components/Pokedex.css */
+.pokemon-detail .MuiIconButton-root {
+  color: #007bff;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pokemon-detail .MuiIconButton-root:hover {
+  background-color: #e0e0e0;
+  color: #0056b3;
+}
